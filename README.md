@@ -53,22 +53,6 @@ Um JSON informando:
 
 ---
 
-## 📂 Estrutura de Projeto
-
-```
-src/
-├── controller/       # REST Controllers
-├── service/          # Lógica de negócio
-├── dto/              # Objetos de entrada e saída da API
-├── model/            # Entidades JPA
-├── repository/       # Interfaces JPA
-└── resources/
-    ├── application.properties
-    └── data.sql      # Dados de exemplo para testes
-```
-
----
-
 ## 🧪 Testes
 
 - ✅ **Testes unitários** com JUnit
@@ -122,25 +106,6 @@ docker run -p 8080:8080 empacotamento-app
 - [x] Uso avançado de Swagger/OpenAPI
 - [x] Manipulação de listas, estruturas de dados e mapeamento
 - [x] Criação e execução de scripts SQL (data.sql)
-
----
-
-## 💼 Ideal para empresas que buscam
-
-- Profissionais com domínio completo de APIs modernas
-- Escrita limpa, com boas práticas e documentação
-- Conhecimento de testes, versionamento e CI/CD
-- Preparação para produção com Docker
-
----
-
-## 📫 Contato
-
-Caso queira conversar sobre esse projeto ou uma oportunidade:
-
-**Seu Nome**  
-📧 [seuemail@exemplo.com]  
-💼 [LinkedIn ou GitHub aqui]
 
 ---
 
