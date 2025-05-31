@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @GetMapping
+    @GetMapping("/home")
     @Operation(summary = "Verifica se a API está no ar")
     public ResponseEntity<String> home() {
         logger.info(">>> Entrou no endpoint /api/home");
