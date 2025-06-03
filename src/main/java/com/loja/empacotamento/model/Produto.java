@@ -31,11 +31,24 @@ public class Produto {
     @Column(name = "comprimento")
     private int comprimento;
 
+    @Column(name = "peso_em_gramas")
+    private int pesoEmGramas;
+
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     public double getVolume() {
         return altura * largura * comprimento;
+    }
+
+    public Produto(Long id, String nome, int altura, int largura, int comprimento, Pedido pedido) {
+        this.id = id;
+        this.nome = nome;
+        this.altura = altura;
+        this.largura = largura;
+        this.comprimento = comprimento;
+        this.pesoEmGramas = 0;
+        this.pedido = pedido;
     }
 }
