@@ -1,20 +1,37 @@
-version: '3.8'
+version: "3.8"
+
 services:
-  loja-manoel:
-    build: .
+  postgres:
+    image: postgres:15
+    container_name: empacotamento-db
+    environment:
+      POSTGRES_DB: empacotamento
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empacotamento-app
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/loja
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
-      - db
-
-  db:
-    image: mysql:8.0
+      postgres:
+        condition: service_healthy
     environment:
-      MYSQL_DATABASE: loja
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
+      SPRING_PROFILES_ACTIVE: dev
+      PORT: 8080
+    restart: always
+
+volumes:
+  pgdata:

@@ -26,13 +26,13 @@ public class Caixa {
     private String tipo;
 
     @Schema(description = "Altura da caixa em centímetros", example = "30")
-    private int altura;
+    private Double altura;
 
     @Schema(description = "Largura da caixa em centímetros", example = "20")
-    private int largura;
+    private Double largura;
 
     @Schema(description = "Comprimento da caixa em centímetros", example = "40")
-    private int comprimento;
+    private Double comprimento;
 
     public double getVolume() {
         return altura * largura * comprimento;

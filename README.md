@@ -1,112 +1,163 @@
-# 🧠 Projeto Técnico: Empacotamento de Pedidos - Loja do Seu Manoel
+# 📦 Projeto Empacotamento
 
-Este projeto foi desenvolvido como parte de uma **avaliação técnica** para a empresa **L2**. Ele representa um **microserviço completo em Java com Spring Boot**, contendo todos os elementos esperados de uma aplicação moderna: API REST, testes, documentação, banco de dados, containerização e lógica de negócio real aplicada.
-
----
-
-## 🚀 Visão Geral
-
-- ✅ Microserviço Java com Spring Boot 3.5
-- ✅ API RESTful com documentação Swagger
-- ✅ Banco de dados em memória com H2
-- ✅ Lógica de empacotamento de pedidos em caixas otimizadas
-- ✅ Testes automatizados (unitários e de integração)
-- ✅ Projeto containerizado com Docker
-- ✅ Pipeline CI com GitHub Actions
-- ✅ Preparado para produção com estrutura escalável
+API desenvolvida em Java com Spring Boot para simular o empacotamento de produtos em pedidos, utilizando caixas previamente cadastradas. A aplicação permite cadastrar pedidos e produtos, realizar o empacotamento de forma otimizada e visualizar os resultados.
 
 ---
 
-## 🔧 Tecnologias e Ferramentas
+## 🚀 Funcionalidades
 
-| Ferramenta/Tecnologia | Uso |
-|------------------------|-----|
-| **Java 17**            | Linguagem principal |
-| **Spring Boot**        | Framework principal para API REST |
-| **Spring Data JPA**    | Persistência de dados com ORM |
-| **H2 Database**        | Banco de dados em memória para testes |
-| **Swagger/OpenAPI**    | Documentação automática dos endpoints |
-| **JUnit 5**            | Testes unitários e de integração |
-| **MockMvc**            | Testes de endpoints REST |
-| **Lombok**             | Redução de boilerplate em Java |
-| **Docker**             | Containerização do microserviço |
-| **Maven**              | Gerenciador de dependências |
-| **GitHub Actions**     | Integração contínua (CI) automatizada |
+- Cadastro de **pedidos** com múltiplos **produtos**
+- Cadastro de **caixas**
+- Endpoint para realizar o **empacotamento**
+- Visualização do resultado com produtos alocados em caixas
+- Interface Swagger para documentação e testes
+- Console H2 para consulta de dados em memória
 
 ---
 
-## 📦 Funcionalidade Principal: Empacotamento
+## 🛠️ Tecnologias e Ferramentas
 
-Este microserviço simula o sistema de empacotamento da **Loja do Seu Manoel**.
-
-### 🧾 Entrada:
-Um JSON com pedidos, onde cada pedido possui uma lista de produtos com dimensões.
-
-### 🧠 Processamento:
-Cada produto é analisado e alocado em uma das **caixas disponíveis** (30x40x80, 80x50x40, 50x80x60). A lógica tenta usar o **mínimo de caixas possível**.
-
-### 📤 Saída:
-Um JSON informando:
-- Cliente
-- Quais caixas foram usadas
-- Quais produtos foram colocados em cada caixa
+- Java 17
+- Spring Boot 3.5.0
+- Spring Data JPA
+- H2 Database (memória)
+- Lombok
+- Swagger/OpenAPI
+- Maven
+- Docker (para versão com PostgreSQL)
+- Postman (para testes)
 
 ---
 
-## 🧪 Testes
-
-- ✅ **Testes unitários** com JUnit
-- ✅ **Testes de integração** com `MockMvc`
-- ✅ Testa requisições reais para o endpoint `/api/empacotar`
-
-Rodar testes:
+## 📁 Estrutura do Projeto
 
 ```bash
-mvn test
+src
+├── main
+│   ├── java/com/loja/empacotamento
+│   │   ├── controller
+│   │   ├── dto
+│   │   ├── model
+│   │   ├── repository
+│   │   └── service
+│   └── resources
+│       ├── application.properties
+│       └── data.sql
+├── test
+│   └── java/com/loja/empacotamento
+│       └── controller
+└── README.md
 ```
 
 ---
 
-## 🐳 Docker
+## 🧪 Como Executar o Projeto
 
-### Build da imagem:
-
-```bash
-mvn clean package
-docker build -t empacotamento-app .
-```
-
-### Rodar o container:
+### 1. Clonar o repositório
 
 ```bash
-docker run -p 8080:8080 empacotamento-app
+git clone https://github.com/seu-usuario/empacotamento.git
+cd empacotamento
+```
+
+### 2. Compilar e Rodar com Maven
+
+```bash
+mvn spring-boot:run
+```
+
+> A aplicação será iniciada em `http://localhost:8080`
+
+---
+
+## 🌐 Endpoints Disponíveis
+
+Acesse a interface do Swagger para testar os endpoints:
+
+📄 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+Exemplos:
+- `GET /pedidos`
+- `POST /pedidos`
+- `GET /produtos`
+- `POST /produtos`
+- `POST /empacotar`
+
+---
+
+## 🗃️ Banco de Dados H2
+
+Acesse o console do H2 em:
+
+🛠 [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+
+- JDBC URL: `jdbc:h2:mem:testdb`
+- Username: `sa`
+- Password: `S`
+
+---
+
+## 📦 Dados de Teste Padrão (`data.sql`)
+
+O projeto vem com dados inseridos automaticamente para facilitar testes:
+
+- Pedido: João com dois produtos
+- Três caixas cadastradas
+- Resultado de empacotamento simulado
+
+---
+
+## 🧪 Testes com Postman
+
+Coleção pronta: `postman/empacotamento-collection.json`
+
+Inclui:
+- Cadastro de pedido
+- Listagem de pedidos
+- Empacotamento de pedido
+- Listagem de resultados
+
+---
+
+## 🧯 Possíveis Erros e Soluções
+
+| Erro | Causa | Solução |
+|------|-------|---------|
+| `Caused by: java.sql.SQLSyntaxErrorException` | Campos do `data.sql` não correspondem aos nomes nas entidades | Verifique nomes dos campos e ordem de inserção |
+| `H2 console not available` | Spring não inicializou o console H2 | Confirme se `spring.h2.console.enabled=true` |
+| `No converter found for return value` | Endpoint não está retornando o tipo correto | Ajustar o `@RestController` e tipos de retorno dos métodos |
+| `Produto ou pedido não encontrado` | IDs informados não existem | Verifique se os dados foram populados corretamente |
+
+---
+
+## 🐳 Versão com Docker e PostgreSQL (Opcional)
+
+Para rodar com banco persistente:
+
+### 1. Subir o banco com Docker
+
+```bash
+docker-compose up -d
+```
+
+### 2. Alterar `application.properties`
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/empacotamento
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.jpa.hibernate.ddl-auto=update
 ```
 
 ---
 
-## 🔍 Swagger e Banco
+## 🧠 Padrões e Boas Práticas Aplicadas
 
-- Swagger: http://localhost:8080/swagger-ui.html
-- H2 Console: http://localhost:8080/h2-console  
-  - JDBC: `jdbc:h2:mem:loja`
-  - Usuário: `sa`
-
----
-
-## ✅ Habilidades Comprovadas neste Projeto
-
-- [x] Criação de API RESTful com Spring Boot
-- [x] Modelagem de dados com JPA e H2
-- [x] Criação de DTOs e lógica de mapeamento
-- [x] Lógica de negócio com análise de espaço e otimização
-- [x] Organização limpa por camadas (Controller, Service, DTO, Model)
-- [x] Testes automatizados com cobertura real de lógica
-- [x] Dockerização da aplicação
-- [x] CI automatizado com GitHub Actions
-- [x] Uso avançado de Swagger/OpenAPI
-- [x] Manipulação de listas, estruturas de dados e mapeamento
-- [x] Criação e execução de scripts SQL (data.sql)
+- **DTOs** para separação entre entidades e interface externa
+- **Service layer** para lógica de negócio
+- **Repository pattern** com Spring Data JPA
+- **KISS, DRY e YAGNI** aplicados
+- **Documentação Swagger**
+- **Banco em memória para testes rápidos**
 
 ---
-
-Desenvolvido com dedicação e foco em qualidade técnica. 💻🚀

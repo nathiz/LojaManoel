@@ -13,9 +13,9 @@ import com.loja.empacotamento.model.ResultadoEmpacotamento;
 public class PedidoService {
 
     private final List<Caixa> caixasDisponiveis = List.of(
-            new Caixa(1L, "Caixa 1", 30, 40, 80),
-            new Caixa(2L, "Caixa 2", 80, 50, 40),
-            new Caixa(3L, "Caixa 3", 50, 80, 60)
+            new Caixa(1L, "Caixa 1", 30.0, 40.0, 80.0),
+            new Caixa(2L, "Caixa 2", 80.0, 50.0, 40.0),
+            new Caixa(3L, "Caixa 3", 50.0, 80.0, 60.0)
     );
 
     private final Map<String, Pedido> pedidosArmazenados = new HashMap<>();

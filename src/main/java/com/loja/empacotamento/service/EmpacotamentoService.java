@@ -10,14 +10,14 @@ import java.util.*;
 public class EmpacotamentoService {
 
     private final List<Caixa> caixasDisponiveis = List.of(
-            new Caixa(1L, "Caixa 1", 30, 40, 80),
-            new Caixa(2L, "Caixa 2", 80, 50, 40),
-            new Caixa(3L, "Caixa 3", 50, 80, 60)
+        new Caixa(1L, "Caixa 1", 30.0, 40.0, 80.0),
+        new Caixa(2L, "Caixa 2", 80.0, 50.0, 40.0),
+        new Caixa(3L, "Caixa 3", 50.0, 80.0, 60.0)
     );
 
     public EmpacotarResponse empacotar(EmpacotarRequest pedido) {
         List<CaixaUsadaResponse> caixasUsadas = new ArrayList<>();
-        Map<String, List<String>> mapaCaixas = new HashMap<>();
+        Map<String, List<ProdutoEmpacotadoResponse>> mapaCaixas = new HashMap<>();
 
         for (ProdutoDTO produto : pedido.getProdutos()) {
             for (Caixa caixa : caixasDisponiveis) {
@@ -25,13 +25,20 @@ public class EmpacotamentoService {
                     && produto.getLargura() <= caixa.getLargura()
                     && produto.getComprimento() <= caixa.getComprimento()) {
 
-                    mapaCaixas.computeIfAbsent(caixa.getTipo(), k -> new ArrayList<>()).add(produto.getNome());
+                    ProdutoEmpacotadoResponse produtoEmpacotado = new ProdutoEmpacotadoResponse(
+                        produto.getNome(),
+                        produto.getAltura() != null ? produto.getAltura().intValue() : 0,
+                        produto.getLargura() != null ? produto.getLargura().intValue() : 0,
+                        produto.getComprimento() != null ? produto.getComprimento().intValue() : 0
+                    );
+
+                    mapaCaixas.computeIfAbsent(caixa.getTipo(), k -> new ArrayList<>()).add(produtoEmpacotado);
                     break;
                 }
             }
         }
 
-        for (Map.Entry<String, List<String>> entry : mapaCaixas.entrySet()) {
+        for (Map.Entry<String, List<ProdutoEmpacotadoResponse>> entry : mapaCaixas.entrySet()) {
             caixasUsadas.add(new CaixaUsadaResponse(entry.getKey(), entry.getValue()));
         }
 

@@ -21,18 +21,18 @@ public class Produto {
 
     @Schema(description = "Altura em cm")
     @Column(name = "altura")
-    private int altura;
+    private Double altura;
 
     @Schema(description = "Largura em cm")
     @Column(name = "largura")
-    private int largura;
+    private Double largura;
 
     @Schema(description = "Comprimento em cm")
     @Column(name = "comprimento")
-    private int comprimento;
+    private Double comprimento;
 
     @Column(name = "peso_em_gramas")
-    private int pesoEmGramas;
+    private Double pesoEmGramas;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
@@ -42,13 +42,4 @@ public class Produto {
         return altura * largura * comprimento;
     }
 
-    public Produto(Long id, String nome, int altura, int largura, int comprimento, Pedido pedido) {
-        this.id = id;
-        this.nome = nome;
-        this.altura = altura;
-        this.largura = largura;
-        this.comprimento = comprimento;
-        this.pesoEmGramas = 0;
-        this.pedido = pedido;
-    }
 }

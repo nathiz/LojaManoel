@@ -7,7 +7,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "resultado_empacotamento")
+@Table(name = "resultado_empacotamento", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "pedido_id", name = "uk_resultado_pedido")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class ResultadoEmpacotamento {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
+    @JoinColumn(name = "pedido_id", nullable = false, unique = true)
     @Schema(description = "Pedido relacionado")
     private Pedido pedido;
 
@@ -28,7 +30,7 @@ public class ResultadoEmpacotamento {
     @Column(name = "total_caixas_utilizadas")
     private int totalCaixasUtilizadas;
 
-    @OneToMany(mappedBy = "resultadoEmpacotamento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "resultadoEmpacotamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Schema(description = "Lista de produtos empacotados")
     private List<ProdutoEmpacotado> produtosEmpacotados;
 }

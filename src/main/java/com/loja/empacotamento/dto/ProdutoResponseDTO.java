@@ -6,8 +6,8 @@ import lombok.Data;
 public class ProdutoResponseDTO {
     private Long id;
     private String nome;
-    private int altura;
-    private int largura;
-    private int comprimento;
-    private int pesoEmGramas;
+    private Double altura;
+    private Double largura;
+    private Double comprimento;
+    private Double pesoEmGramas;
 }

@@ -1,0 +1,107 @@
+{
+  "info": {
+    "name": "Empacotamento API",
+    "_postman_id": "12345-67890",
+    "description": "Coleção de testes da API de empacotamento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar Produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/produtos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["produtos"]
+        }
+      }
+    },
+    {
+      "name": "Criar Produto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Produto Teste\",\n  \"altura\": 10.0,\n  \"largura\": 10.0,\n  \"comprimento\": 10.0,\n  \"pesoEmGramas\": 500.0\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/produtos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["produtos"]
+        }
+      }
+    },
+    {
+      "name": "Criar Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/pedidos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "pedidos"]
+        }
+      }
+    },
+    {
+      "name": "Listar Pedidos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/pedidos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "pedidos"]
+        }
+      }
+    },
+    {
+      "name": "Empacotar Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nomeCliente\": \"João da Silva\",\n  \"produtos\": [\n    {\n      \"nome\": \"Produto A\",\n      \"altura\": 10.0,\n      \"largura\": 5.0,\n      \"comprimento\": 20.0,\n      \"pesoEmGramas\": 500.0\n    },\n    {\n      \"nome\": \"Produto B\",\n      \"altura\": 15.0,\n      \"largura\": 10.0,\n      \"comprimento\": 30.0,\n      \"pesoEmGramas\": 800.0\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/empacotar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "empacotar"]
+        }
+      }
+    }
+  ]
+}
